@@ -5,8 +5,6 @@
     "godotenv",
     "gofiber",
     "gorm",
-    "healthcheck",
-    "healthchecl",
     "joho",
     "sslmode"
   ]

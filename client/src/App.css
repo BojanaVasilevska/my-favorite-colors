@@ -1,42 +1,64 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+@media only screen and (min-width: 480px) {
+  /* styles for devices with a minimum screen width of 480px */
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+  .app-box {
+    width: 600px;
+    height: 600px;
+    background-color: whitesmoke;
+    justify-content: center;
+    position: absolute;
+    margin-left: 35%;
+    margin-top: 200px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .title {
+    color: #000;
+    margin: 20px;
+    font-size: bold;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .wrapper {
+    position: relative;
   }
-}
 
-.card {
-  padding: 2em;
-}
+  .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    padding: 4px;
+    margin-left: 19px;
+    padding-bottom: 520px;
+    position: absolute;
+    box-sizing: border-box;
+    top: 50%;
+    left: 2px;
+    transform: translateY(-50%);
+  }
 
-.read-the-docs {
-  color: #888;
+  .color-name {
+    width: 400px;
+    height: 40px;
+    margin-left: 20px;
+    box-sizing: border-box;
+    padding-left: 2rem;
+    background-color: whitesmoke;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+  }
+
+  .color-picker {
+    width: 50px;
+    height: 40px;
+    padding-top: 5;
+  }
+
+  .button-add {
+    width: 50px;
+    height: 40px;
+    background-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    color: #f8f8f8;
+  }
 }
