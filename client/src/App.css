@@ -1,0 +1,64 @@
+@media only screen and (min-width: 480px) {
+  /* styles for devices with a minimum screen width of 480px */
+
+  .app-box {
+    width: 600px;
+    height: 600px;
+    background-color: whitesmoke;
+    justify-content: center;
+    position: absolute;
+    margin-left: 35%;
+    margin-top: 200px;
+  }
+
+  .title {
+    color: #000;
+    margin: 20px;
+    font-size: bold;
+  }
+
+  .wrapper {
+    position: relative;
+  }
+
+  .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    padding: 4px;
+    margin-left: 19px;
+    padding-bottom: 520px;
+    position: absolute;
+    box-sizing: border-box;
+    top: 50%;
+    left: 2px;
+    transform: translateY(-50%);
+  }
+
+  .color-name {
+    width: 400px;
+    height: 40px;
+    margin-left: 20px;
+    box-sizing: border-box;
+    padding-left: 2rem;
+    background-color: whitesmoke;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+  }
+
+  .color-picker {
+    width: 50px;
+    height: 40px;
+    padding-top: 5;
+  }
+
+  .button-add {
+    width: 50px;
+    height: 40px;
+    background-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    color: #f8f8f8;
+  }
+}
