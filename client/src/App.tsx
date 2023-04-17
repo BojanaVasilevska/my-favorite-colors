@@ -1,8 +1,9 @@
-import { faHeart, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./App.css";
-import { Box } from "@mantine/core";
 import React, { useState, useEffect, useRef } from "react";
+import "./App.css";
+
+import { faHeart, faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Box } from "@mantine/core";
 import { ChromePicker, ColorResult } from "react-color";
 
 export const ENDPOINT = "http://localhost:8080";
@@ -59,14 +60,13 @@ function App() {
     <Box className="app-box">
       <div>
         <div>
-          <text className="title">My favortie color</text>
+          <h4 className="title">My favorite color</h4>
         </div>
         <div>
           {colors.map((c, i) => (
             <FontAwesomeIcon
               className="icon"
               icon={faHeart}
-              key={c.hex}
               style={{ color: c.hex }}
             />
           ))}
@@ -81,11 +81,13 @@ function App() {
             className="color-picker"
             onClick={() => setShowPicker(!showPicker)}
           >
-            Pick Color
+            {colors.map((c, i) => (
+              <Box style={{ color: c.hex, display: "inline-block" }}></Box>
+            ))}
           </button>
 
           <button className="button-add" onClick={handleAddColor}>
-            Add Color
+            <FontAwesomeIcon className="icon-plus" icon={faPlus} />
           </button>
         </div>
         {showPicker && (
@@ -95,9 +97,17 @@ function App() {
         )}
         <ul>
           {colors.map((c, i) => (
-            <li key={c.hex} style={{ backgroundColor: c.hex }}>
+            <li
+              key={c.hex}
+              style={{ backgroundColor: c.hex, marginRight: 20, height: 35 }}
+            >
               {c.hex}
-              <button onClick={() => handleDeleteColor(i)}>Delete</button>
+              <button
+                style={{ marginLeft: 400 }}
+                onClick={() => handleDeleteColor(i)}
+              >
+                <FontAwesomeIcon className="icon-plus" icon={faTrashCan} />
+              </button>
             </li>
           ))}
         </ul>
