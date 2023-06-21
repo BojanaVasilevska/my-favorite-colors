@@ -48,6 +48,7 @@
   border-color: gray;
 }
 
+/* Color picker button styling  */
 .color-picker {
   flex-grow: 1;
   width: 50px;
