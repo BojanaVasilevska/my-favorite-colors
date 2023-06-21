@@ -1,166 +1,66 @@
-/* Reset default margins and paddings */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Center the app */
-body {
-  background-color: #f8f8f8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-/* Container for the app */
-.app-container {
-  width: 100%;
-  max-width: 600px;
-  padding: 20px;
-}
-
-/* Box styling */
 .app-box {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Title styling */
-.title {
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* Color section styling */
-.color-section {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-/* Color input container styling */
-.color-input-container {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 4px;
-}
-
-/* Heart icon container styling */
-.heart-icon-container {
-  display: flex;
-  align-items: center;
+  flex-grow: 1;
+  width: 600px;
+  height: 600px;
+  background-color: whitesmoke;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  margin-right: 8px;
-  border-radius: 50%;
-  background-color: #f8f8f8;
+  position: relative;
+  margin-left: 30%;
+  margin-top: 200px;
 }
 
-/* Heart icon styling */
-.heart-icon {
-  font-size: 16px;
-  color: #f44336;
+.title {
+  flex-grow: 1;
+  color: #000;
+  margin: 20px;
+  font-size: bold;
 }
 
-/* Color name input styling */
+.wrapper {
+  flex-grow: 1;
+  position: relative;
+}
+
+.icon {
+  flex-grow: 1;
+  height: 1.5rem;
+  width: 1.5rem;
+  padding: 4px;
+  margin-left: 19px;
+  padding-bottom: 480px;
+  position: absolute;
+  box-sizing: border-box;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+}
+
 .color-name {
   flex-grow: 1;
-  border: none;
-  outline: none;
-  font-size: 14px;
+  width: 460px;
+  height: 40px;
+  margin-left: 20px;
+  box-sizing: border-box;
+  padding-left: 2rem;
+  background-color: whitesmoke;
+  border-style: solid;
+  border-width: 1px;
+  border-color: gray;
 }
 
-/* Color picker button styling */
 .color-picker {
-  padding: 8px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+  flex-grow: 1;
+  width: 50px;
+  height: 40px;
+  position: static;
 }
 
-/* Color box styling */
-.color-box {
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-  border-radius: 4px;
-}
-
-/* Add color button styling */
 .button-add {
-  padding: 8px;
-  background-color: #000;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* Color picker container styling */
-.color-picker-container {
-  position: relative;
-  margin-top: 10px;
-}
-
-/* Color list styling */
-.color-list {
-  list-style: none;
-  margin-top: 20px;
-  padding: 0;
-}
-
-.color-list-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  padding: 8px;
-  border-radius: 4px;
-  color: #fff;
-  font-size: 14px;
-}
-
-.icon-trash {
-  font-size: 14px;
-  margin-left: 8px;
-  cursor: pointer;
-}
-
-/* Media Queries for responsiveness */
-@media (max-width: 480px) {
-  .title {
-    font-size: 20px;
-  }
-  .color-name {
-    font-size: 12px;
-  }
-  .button-add {
-    font-size: 12px;
-  }
-  .color-list-item {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 320px) {
-  .title {
-    font-size: 18px;
-  }
-  .color-name {
-    font-size: 10px;
-  }
-  .button-add {
-    font-size: 10px;
-  }
-  .color-list-item {
-    font-size: 10px;
-  }
+  width: 50px;
+  height: 40px;
+  background-color: rgb(0, 0, 0);
+  border-style: solid;
+  border-width: 1px;
+  border-color: gray;
+  color: #f8f8f8;
 }
