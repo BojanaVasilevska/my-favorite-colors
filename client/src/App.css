@@ -1,3 +1,27 @@
+/* Reset default margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Center the app */
+body {
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container for the app */
+.app-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+/* Box styling */
 .app-box {
   background-color: #fff;
   border-radius: 8px;
@@ -24,6 +48,7 @@
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
+  border-radius: 4px;
   padding: 4px;
 }
 
@@ -32,50 +57,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  margin-left: 30%;
-  margin-top: 200px;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background-color: #f8f8f8;
 }
 
-.title {
-  flex-grow: 1;
-  color: #000;
-  margin: 20px;
-  font-size: bold;
+/* Heart icon styling */
+.heart-icon {
+  font-size: 16px;
+  color: #f44336;
 }
 
-.wrapper {
-  flex-grow: 1;
-  position: relative;
-}
-
-.icon {
-  flex-grow: 1;
-  height: 1.5rem;
-  width: 1.5rem;
-  padding: 4px;
-  margin-left: 19px;
-  padding-bottom: 480px;
-  position: absolute;
-  box-sizing: border-box;
-  top: 50%;
-  left: 2px;
-  transform: translateY(-50%);
-}
-
+/* Color name input styling */
 .color-name {
   flex-grow: 1;
-  width: 460px;
-  height: 40px;
-  margin-left: 20px;
-  box-sizing: border-box;
-  padding-left: 2rem;
-  background-color: whitesmoke;
-  border-style: solid;
-  border-width: 1px;
-  border-color: gray;
+  border: none;
+  outline: none;
+  font-size: 14px;
 }
 
+/* Color picker button styling */
 .color-picker {
   padding: 8px;
   background-color: transparent;
@@ -87,8 +90,7 @@
 .color-box {
   width: 16px;
   height: 16px;
-  border-radius: 4px;
-}
+  margin-right: 4px;
 
 /* Add color button styling */
 .button-add {

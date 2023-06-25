@@ -11,6 +11,7 @@ export const ENDPOINT = "http://localhost:8080";
 interface Color {
   hex: string;
 }
+
 function App() {
   const [color, setColor] = useState<Color>({ hex: "#65aa56" }); // State for the currently selected color
   const [colors, setColors] = useState<Color[]>([]); // State for the list of colors
