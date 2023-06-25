@@ -82,8 +82,8 @@ body {
 .color-picker {
   padding: 8px;
   background-color: transparent;
-  border: none;
   cursor: pointer;
+  border: 1px solid #ccc;
 }
 
 /* Color box styling */
@@ -91,16 +91,15 @@ body {
   width: 16px;
   height: 16px;
   margin-right: 4px;
-  border-radius: 4px;
-}
 
 /* Add color button styling */
 .button-add {
+  width: 30px;
+  height: 34px;
   padding: 8px;
   background-color: #000;
   color: #fff;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
 }
 

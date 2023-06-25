@@ -13,7 +13,7 @@ interface Color {
 }
 
 function App() {
-  const [color, setColor] = useState<Color>({ hex: "#ffffff" }); // State for the currently selected color
+  const [color, setColor] = useState<Color>({ hex: "#65aa56" }); // State for the currently selected color
   const [colors, setColors] = useState<Color[]>([]); // State for the list of colors
   const [showPicker, setShowPicker] = useState<boolean>(false); // State to toggle color picker visibility
   const pickerRef = useRef<HTMLDivElement>(null); // Reference to the color picker element
