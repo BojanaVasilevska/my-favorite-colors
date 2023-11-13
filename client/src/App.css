@@ -48,7 +48,6 @@ body {
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
-  border-radius: 4px;
   padding: 4px;
 }
 
@@ -82,15 +81,16 @@ body {
 .color-picker {
   padding: 8px;
   background-color: transparent;
-  cursor: pointer;
   border: 1px solid #ccc;
+  cursor: pointer;
 }
 
 /* Color box styling */
 .color-box {
   width: 16px;
   height: 16px;
-  margin-right: 4px;
+  border-radius: 4px;
+}
 
 /* Add color button styling */
 .button-add {
