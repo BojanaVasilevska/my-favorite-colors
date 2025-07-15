@@ -1,155 +1,170 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/bojanavasilevska/my-favorite-colors/models"
 	"github.com/bojanavasilevska/my-favorite-colors/storage"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"gorm.io/gorm"
 )
-
-type Color struct {
-	Title string `json:"title"`
-}
 
 type Repository struct {
 	DB *gorm.DB
 }
 
-func (r *Repository) PeekColor(context *fiber.Ctx) error {
-	color := Color{}
-	err := context.BodyParser(&color)
-	if err != nil {
-		context.Status(http.StatusUnprocessableEntity).JSON(
-			&fiber.Map{"message": "request failed"})
-			return err
+// Create/Add a new color
+func (r *Repository) PeekColor(c *fiber.Ctx) error {
+	// Use your GORM model struct to bind request body
+	color := new(models.Colors)
+
+	if err := c.BodyParser(color); err != nil {
+		return c.Status(http.StatusUnprocessableEntity).JSON(fiber.Map{
+			"message": "Invalid request body",
+			"error":   err.Error(),
+		})
 	}
 
-	err = r.DB.Create(&color).Error
-	if err !=  nil {
-		context.Status(http.StatusBadRequest).JSON(
-			&fiber.Map{"message": "could not peek color"})
-			return err
+	// Save to DB
+	if err := r.DB.Create(color).Error; err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"message": "Could not add color",
+			"error":   err.Error(),
+		})
 	}
 
-	context.Status(http.StatusOK).JSON(
-		&fiber.Map{"message": "color has been peeked"})
-	return nil
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"message": "Color added successfully",
+		"data":    color,
+	})
 }
 
-func (r *Repository) DeleteColor(context *fiber.Ctx) error {
-	colorModel := models.Colors{}
-	id := context.Params("id")
-	if id == "" {
-		context.Status(http.StatusInternalServerError).JSON(&fiber.Map{
-			"message": "id cannot be empty",
+// Delete a color by ID
+func (r *Repository) DeleteColor(c *fiber.Ctx) error {
+	idStr := c.Params("id")
+	if idStr == "" {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"message": "ID cannot be empty",
 		})
-		return nil
 	}
 
-	err :=  r.DB.Delete(colorModel, id)
-	if err.Error != nil {
-		context.Status(http.StatusBadRequest).JSON(&fiber.Map{
-			"message": "could not delete color",
-		})
-		return err.Error
-	}
-
-	context.Status(http.StatusOK).JSON(&fiber.Map{
-		"message": "colors delete successfully",
-	})
-	return nil
-} 
-
-func (r *Repository) GetColors(context *fiber.Ctx) error {
-	colorModels := &[]models.Colors{}
-
-	err := r.DB.Find(colorModels).Error
+	// Convert id to uint
+	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
-		context.Status(http.StatusBadRequest).JSON(
-			&fiber.Map{"message": "could not peek colors"})
-			return err
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"message": "Invalid ID format",
+			"error":   err.Error(),
+		})
 	}
 
-	context.Status(http.StatusOK).JSON(&fiber.Map{
-		"message": "colors fetched successfully",
-		"data":colorModels,
+	// Delete color
+	if err := r.DB.Delete(&models.Colors{}, uint(id)).Error; err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"message": "Could not delete color",
+			"error":   err.Error(),
+		})
+	}
+
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"message": "Color deleted successfully",
 	})
-	return nil
-	
 }
 
-func (r *Repository) GetColoByID(context *fiber.Ctx) error {
-	id := context.Params("id")
-	colorModel := &models.Colors{}
-	if id == ""{
-		context.Status(http.StatusInternalServerError).JSON(&fiber.Map{
-			"message": "id can not be empty",
+// Get all colors
+func (r *Repository) GetColors(c *fiber.Ctx) error {
+	var colors []models.Colors
+
+	if err := r.DB.Find(&colors).Error; err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"message": "Could not fetch colors",
+			"error":   err.Error(),
 		})
-		return nil
 	}
 
-	fmt.Println("the ID is", id)
-
-	err := r.DB.Where("id = ?", id).First(colorModel).Error
-	if err != nil {
-		context.Status(http.StatusBadRequest).JSON(&fiber.Map{
-			"message": "could not get the color",
-		})
-		return err
-	}
-
-	context.Status(http.StatusOK).JSON(&fiber.Map{
-		"message": "color id fetched successfully",
-		"data": colorModel,
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"message": "Colors fetched successfully",
+		"data":    colors,
 	})
-	return nil
 }
 
-func(r *Repository) SetupRoutes(app *fiber.App){
+// Get color by ID
+func (r *Repository) GetColorByID(c *fiber.Ctx) error {
+	idStr := c.Params("id")
+	if idStr == "" {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"message": "ID cannot be empty",
+		})
+	}
+
+	id, err := strconv.ParseUint(idStr, 10, 32)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"message": "Invalid ID format",
+			"error":   err.Error(),
+		})
+	}
+
+	var color models.Colors
+	if err := r.DB.First(&color, uint(id)).Error; err != nil {
+		return c.Status(http.StatusNotFound).JSON(fiber.Map{
+			"message": "Color not found",
+			"error":   err.Error(),
+		})
+	}
+
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"message": "Color fetched successfully",
+		"data":    color,
+	})
+}
+
+func (r *Repository) SetupRoutes(app *fiber.App) {
 	api := app.Group("/api")
 	api.Post("/peek_color", r.PeekColor)
-	api.Delete("delete_color/:id", r.DeleteColor)
-	api.Get("/get_color/:id", r.GetColoByID)
+	api.Delete("/delete_color/:id", r.DeleteColor)
+	api.Get("/get_color/:id", r.GetColorByID)
 	api.Get("/colors", r.GetColors)
 }
 
 func main() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal(err)
+	// Load env vars from .env
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("Error loading .env file:", err)
 	}
 
 	config := &storage.Config{
-		Host: os.Getenv("DB_HOST"),
-		Port: os.Getenv("DB_PORT"),
+		Host:     os.Getenv("DB_HOST"),
+		Port:     os.Getenv("DB_PORT"),
 		Password: os.Getenv("DB_PASS"),
-		User: os.Getenv("DB_USER"),
-		DBName: os.Getenv("DB_NAME"),
-		SSLMode: os.Getenv("DB_SSLMODE"),
+		User:     os.Getenv("DB_USER"),
+		DBName:   os.Getenv("DB_NAME"),
+		SSLMode:  os.Getenv("DB_SSLMODE"),
 	}
 
 	db, err := storage.NewConnection(config)
 	if err != nil {
-		log.Fatal("Could not load the database")
+		log.Fatal("Could not connect to the database:", err)
 	}
 
-	err = models.MigrateColors(db)
-	if err != nil{
-		log.Fatal("Could not migrate")
+	if err := models.MigrateColors(db); err != nil {
+		log.Fatal("Could not migrate database:", err)
 	}
 
-	r := Repository {
-		DB: db,
-	}
+	repo := Repository{DB: db}
 
 	app := fiber.New()
-	r.SetupRoutes(app)
-	app.Listen(":8080")
 
+	// Enable CORS 
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:5173", 
+	}))
+
+	repo.SetupRoutes(app)
+
+	log.Fatal(app.Listen(":8080"))
 }

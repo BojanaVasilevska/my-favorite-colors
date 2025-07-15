@@ -1,6 +1,8 @@
 module github.com/bojanavasilevska/my-favorite-colors
 
-go 1.19
+go 1.23.0
+
+toolchain go1.23.11
 
 require gorm.io/gorm v1.24.7-0.20230306060331-85eaf9eeda11
 
