@@ -15,7 +15,7 @@
     "@mantine/core": "^6.0.2",
     "@mantine/hooks": "^6.0.2",
     "@primer/octicons-react": "^18.2.0",
-    "axios": "^1.10.0",
+    "axios": "^1.12.0",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
